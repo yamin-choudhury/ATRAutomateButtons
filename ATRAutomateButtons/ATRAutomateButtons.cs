@@ -75,58 +75,58 @@ namespace cAlgo.Robots
             ExecuteMarketOrder(TradeType.Sell);
         }
         
-private void ExecuteMarketOrder(TradeType tradeType)
-{
-    // Get the latest ATR values
-    double atrValueM15 = atrM15.Result.LastValue;
-    double atrValueH1 = atrH1.Result.LastValue;
+        private void ExecuteMarketOrder(TradeType tradeType)
+        {
+            // Get the latest ATR values
+            double atrValueM15 = atrM15.Result.LastValue;
+            double atrValueH1 = atrH1.Result.LastValue;
 
-    // Calculate the stop loss in pips (ATR * ScaleFactor) using M15 ATR
-    double stopLossPips = (atrValueM15 / Symbol.PipSize) * ScaleFactor;
+            // Calculate the stop loss in pips (ATR * ScaleFactor) using M15 ATR
+            double stopLossPips = (atrValueM15 / Symbol.PipSize) * ScaleFactor;
 
-    // Round stop loss pips to one decimal place
-    stopLossPips = Math.Round(stopLossPips, 1);
+            // Round stop loss pips to one decimal place
+            stopLossPips = Math.Round(stopLossPips, 1);
 
-    // Calculate account balance risk
-    double accountBalance = Account.Balance;
-    double riskAmount = accountBalance * (RiskPercent / 100);
+            // Calculate account balance risk
+            double accountBalance = Account.Balance;
+            double riskAmount = accountBalance * (RiskPercent / 100);
 
-    // Calculate pip value (depends on symbol)
-    double pipValue = Symbol.PipValue;
+            // Calculate pip value (depends on symbol)
+            double pipValue = Symbol.PipValue;
 
-    // Correct volume calculation
-    double volume = riskAmount / (stopLossPips * pipValue);
+            // Correct volume calculation
+            double volume = riskAmount / (stopLossPips * pipValue);
 
-    // Ensure volume is within minimum/maximum bounds
-    volume = Symbol.NormalizeVolumeInUnits(volume);
+            // Ensure volume is within minimum/maximum bounds
+            volume = Symbol.NormalizeVolumeInUnits(volume);
 
-    // Calculate stop loss price
-    double stopLossPrice = tradeType == TradeType.Buy
-        ? Symbol.Bid - stopLossPips * Symbol.PipSize
-        : Symbol.Ask + stopLossPips * Symbol.PipSize;
+            // Calculate stop loss price
+            double stopLossPrice = tradeType == TradeType.Buy
+                ? Symbol.Bid - stopLossPips * Symbol.PipSize
+                : Symbol.Ask + stopLossPips * Symbol.PipSize;
 
-    // Calculate take profit in pips and round it to one decimal place
-    double takeProfitPips = Math.Round(stopLossPips * 2, 1); // Example take profit 2:1 risk-reward
+            // Calculate take profit in pips and round it to one decimal place
+            double takeProfitPips = Math.Round(stopLossPips * 2, 1); // Example take profit 2:1 risk-reward
 
-    // Calculate take profit price
-    double takeProfitPrice = tradeType == TradeType.Buy
-        ? Symbol.Bid + takeProfitPips * Symbol.PipSize
-        : Symbol.Ask - takeProfitPips * Symbol.PipSize;
+            // Calculate take profit price
+            double takeProfitPrice = tradeType == TradeType.Buy
+                ? Symbol.Bid + takeProfitPips * Symbol.PipSize
+                : Symbol.Ask - takeProfitPips * Symbol.PipSize;
 
-    // Debug print statements
-    Print("ATR M15 (in pips): {0}", Math.Round(atrValueM15 / Symbol.PipSize, 1));
-    Print("ATR H1 (in pips): {0}", Math.Round(atrValueH1 / Symbol.PipSize, 1));
-    Print("Stop Loss Pips: {0}", stopLossPips);
-    Print("Pip Value: {0}", pipValue);
-    Print("Lot Size: {0}", Symbol.LotSize);
-    Print("Risk Amount: {0}", riskAmount);
-    Print("Volume: {0}", volume);
-    Print("Stop Loss Price: {0}", stopLossPrice);
-    Print("Take Profit Price: {0}", takeProfitPrice);
+            // Debug print statements
+            Print("ATR M15 (in pips): {0}", Math.Round(atrValueM15 / Symbol.PipSize, 1));
+            Print("ATR H1 (in pips): {0}", Math.Round(atrValueH1 / Symbol.PipSize, 1));
+            Print("Stop Loss Pips: {0}", stopLossPips);
+            Print("Pip Value: {0}", pipValue);
+            Print("Lot Size: {0}", Symbol.LotSize);
+            Print("Risk Amount: {0}", riskAmount);
+            Print("Volume: {0}", volume);
+            Print("Stop Loss Price: {0}", stopLossPrice);
+            Print("Take Profit Price: {0}", takeProfitPrice);
 
-    // Execute the market order
-    ExecuteMarketOrder(tradeType, SymbolName, volume, "ATR Risk Management", stopLossPips, takeProfitPips);
-}
+            // Execute the market order
+            ExecuteMarketOrder(tradeType, SymbolName, volume, "ATR Risk Management", stopLossPips, takeProfitPips);
+        }
 
 
 
