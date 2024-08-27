@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "R7gNVNilJSsJ5EL8wHrnefYdPZIpdFtcCxHwUEC8wS/tzNkSIdBPf7INtWApB/TiTu2bPDA0XZ0ZaHIJRWLF5Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\YaminChoudhury\\Documents\\cAlgo\\Sources\\Robots\\ATRAutomateButtons\\ATRAutomateButtons\\ATRAutomateButtons.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\YaminChoudhury\\.nuget\\packages\\ctrader.automate\\1.0.9\\ctrader.automate.1.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}
